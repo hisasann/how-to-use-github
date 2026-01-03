@@ -1,0 +1,26 @@
+name: CI  # ワークフローの名前
+
+on:  # トリガー
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:  # 実行するジョブ
+  test:
+    runs-on: ubuntu-latest  # 実行環境
+
+    steps:  # ジョブ内のステップ
+      - uses: actions/checkout@v4  # リポジトリをチェックアウト
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test # <- ここを実行するのがこのワークフローの目的
+
